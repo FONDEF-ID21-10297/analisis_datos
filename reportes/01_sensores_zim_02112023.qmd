@@ -15,11 +15,13 @@ editor: source
 #| warning: false
 #| message: false
 library(tidyverse)
+library(fs)
 library(highcharter)
 library(gt)
 
-data_sm <- read_rds('../data/procesada/data_zim_sm_2023-09-30_21:00:00_2023-11-02_12:00:00.rds')
-data_tur <- read_rds('../data/procesada/data_zim_turgor_2023-09-30_21:00:00_2023-11-02_09:00:00.rds')
+
+data_sm <- read_rds(dir_ls('../data/procesada/',regexp = 'zim_sm.*rds$'))
+data_tur <- read_rds(dir_ls('../data/procesada/',regexp = 'zim_turgor.*rds$'))
 ```
 
 
@@ -89,7 +91,7 @@ data_tur |>
   ggplot(aes(hora,value_sc,color=zim)) +
   geom_point(size=.05) +
   #geom_text(data = data_info,aes(unidad,75,label = codigo),size=2) +
-  facet_grid(tratamiento~unidad) +
+  facet_grid(tratamiento+sitio~unidad) +
   theme_bw()
 ```
 
