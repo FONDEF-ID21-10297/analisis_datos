@@ -8,6 +8,8 @@ format: html
 editor: source
 ---
 
+# Procesado de los datos
+
 ## Carga de datos
 ```{r setup}
 #| include: true
@@ -22,6 +24,16 @@ library(gt)
 
 data_sm <- read_rds(dir_ls('../data/procesada/',regexp = 'zim_sm.*rds$'))
 data_tur <- read_rds(dir_ls('../data/procesada/',regexp = 'zim_turgor.*rds$'))
+```
+
+## Arreglo datos
+
+```{r}
+
+data_sm <- data_sm |>
+  group_by(hora,sitio,tratamiento) |> 
+  mutate(unidad = row_number()) 
+
 ```
 
 
